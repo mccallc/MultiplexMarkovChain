@@ -64,11 +64,11 @@ def get_counts(g1, g2, method):
         for m in nodes[i+1:]:
             if (g1.has_edge(n,m)):
                 #An edge is present, check what is the state
-                prev_state = g1.edge[n][m]["state"]
+                prev_state = g1.adj[n][m]["state"]
             else:
                 prev_state = 0
             if (g2.has_edge(n,m)):
-                current_state = g2.edge[n][m]["state"]
+                current_state = g2.adj[n][m]["state"]
             else:
                 current_state = 0
             transition = prev_state*4 + current_state
@@ -185,8 +185,8 @@ def compute_counts_from_file(fname_edges, fname_nodes=None, method=None):
             edgeState = 2*int(eB) + int(eA)
         except:
             logger.error("Edge '%s' cannot produce an integer valued state. Please check the input.", line)
-        if (g_new.has_edge(n1,n2) and g_new.edge[n1][n2]["state"] != edgeState):
-            logger.warning("Graph already has edge %s--%s in state %s",n1,n2,g_new.edge[n1][n2]["state"])
+        if (g_new.has_edge(n1,n2) and g_new.adj[n1][n2]["state"] != edgeState):
+            logger.warning("Graph already has edge %s--%s in state %s",n1,n2,g_new.adj[n1][n2]["state"])
         g_new.add_edge(n1,n2, state=edgeState)
         prevTimeStep = timeStep
 
